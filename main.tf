@@ -56,14 +56,14 @@ resource "aws_iam_policy" "s3_bucket_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Action = ["s3:GetObject"],
-        Effect = "Allow",
-        Resource = *
+        Action   = ["s3:GetObject"],
+        Effect   = "Allow",
+        Resource = aws_s3_bucket.main.arn # Construct ARN using bucket name
       },
       {
-        Action = ["s3:ListBucket"],
-        Effect = "Allow",
-        Resource = *
+        Action   = ["s3:ListBucket"],
+        Effect   = "Allow",
+        Resource = "${aws_s3_bucket.main.arn}/*" # Construct ARN for bucket contents
       }
     ],
   })
@@ -72,8 +72,9 @@ resource "aws_iam_policy" "s3_bucket_policy" {
 resource "aws_iam_policy_attachment" "s3_bucket_attachment" {
   name       = "s3_bucket_attachment"
   policy_arn = aws_iam_policy.s3_bucket_policy.arn
-  users      = terraform-user 
+  users      = ["terraform-user"] # Replace with your IAM user
 }
+
 
 
 
