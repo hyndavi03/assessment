@@ -1,17 +1,13 @@
-name: Terraform 
+name: Terraform Workflow
 
 on:
   push:
     branches:
-      - main  # Adjust to match your repository's default branch
+      - main
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
     - name: Checkout code
@@ -19,12 +15,27 @@ jobs:
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0  # Adjust to your desired Terraform version
 
+    - name: Configure AWS credentials
+      run: |
+        echo ${{ secrets.AWS_ACCESS_KEY_ID }} > aws_access_key_id
+        echo ${{ secrets.AWS_SECRET_ACCESS_KEY }} > aws_secret_access_key
+        aws configure set aws_access_key_id $(cat aws_access_key_id)
+        aws configure set aws_secret_access_key $(cat aws_secret_access_key)
+        aws configure set default.region ${{ secrets.AWS_REGION }}
+        
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Apply Terraform
-      run: terraform apply -auto-approve
+    - name: Validate Terraform Configuration
+      run: terraform validate
 
-    - name: Cleanup
-      run: terraform destroy -auto-
+    - name: Plan Terraform Changes
+      run: terraform plan -out=tfplan
+
+    - name: Apply Terraform Changes
+      run: terraform apply -auto-approve tfplan
+
+    # You can add more steps as needed for your workflow.
