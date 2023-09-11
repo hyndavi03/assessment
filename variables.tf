@@ -1,6 +1,6 @@
 variable "aws_region" {
   description = "AWS region where resources will be created."
-  default     = "ap-south-1"
+  default     = "us-east-1"
 }
 
 variable "vpc_cidr_block" {
