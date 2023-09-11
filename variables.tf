@@ -1,6 +1,6 @@
 variable "aws_region" {
   description = "AWS region where resources will be created."
-  default     = "us-east-1"
+  default     = "ap-south-1"
 }
 
 variable "vpc_cidr_block" {
@@ -25,7 +25,7 @@ variable "instance_ami" {
 
 variable "s3_bucket_name" {
   description = "Name of the S3 bucket."
-  default     = "my-terrr-buckettttt"
+  default     = "myyy-terrr-buckettttt"
 }
 
 variable "security_group_ingress" {
