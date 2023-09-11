@@ -46,8 +46,35 @@ resource "aws_instance" "main" {
 
 resource "aws_s3_bucket" "main" {
   bucket = var.s3_bucket_name
-  acl    = "private"  # Adjust access controls as needed
+  acl    = "private"
 }
+
+resource "aws_iam_policy" "s3_bucket_policy" {
+  name        = "s3_bucket_policy"
+  description = "IAM policy for granting access to S3 bucket"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = ["s3:GetObject"],
+        Effect = "Allow",
+        Resource = *
+      },
+      {
+        Action = ["s3:ListBucket"],
+        Effect = "Allow",
+        Resource = *
+      }
+    ],
+  })
+}
+
+resource "aws_iam_policy_attachment" "s3_bucket_attachment" {
+  name       = "s3_bucket_attachment"
+  policy_arn = aws_iam_policy.s3_bucket_policy.arn
+  users      = terraform-user 
+}
+
 
 
 resource "aws_s3_bucket_acl" "main" {
