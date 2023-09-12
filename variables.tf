@@ -16,6 +16,11 @@ variable "subnet_cidr_block" {
   
 }
 
+variable "route_table_name" {
+  description = "Name for the AWS route table."
+  default     = "RT" # Set the desired name here
+}
+
 variable "instance_type" {
   description = "EC2 instance type."
   default     = "t2.micro"
