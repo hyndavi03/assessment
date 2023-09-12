@@ -36,6 +36,11 @@ resource "aws_route" "internet" {
   gateway_id             = aws_internet_gateway.main.id
 }
 
+resource "aws_route_table_association" "subnet_association" {
+  subnet_id      = aws_subnet.main.id
+  route_table_id = aws_route_table.main.id
+}
+
 resource "aws_security_group" "main" {
   name        = "example_security_group"
   description = "Example Security Group"
