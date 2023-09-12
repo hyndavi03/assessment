@@ -75,6 +75,9 @@ resource "aws_instance" "main" {
   ami           = var.instance_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.main.id
+  tags = {
+    Name = var.route_table_name
+  }
   vpc_security_group_ids = [aws_security_group.main.id]
   tags = {
     Name = "MyEC2Instance-1"
