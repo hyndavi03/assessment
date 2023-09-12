@@ -28,6 +28,7 @@ resource "aws_internet_gateway" "main" {
 
 resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main.id
+  name   = "RT"
 }
 
 resource "aws_route" "internet" {
@@ -47,6 +48,19 @@ resource "aws_security_group" "main" {
   vpc_id      = aws_vpc.main.id
   tags = {
     Name = "MySG-1"
+  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # You may want to restrict this to your IP or specific IPs for security
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # You may want to restrict this to your IP or specific IPs for security
   }
 
   // Define your security group rules here
