@@ -35,12 +35,6 @@ resource "aws_route_table" "main" {
   }
 }
 
-resource "aws_route_table_tag" "main" {
-  resource_id = aws_route_table.main.id
-  key         = "Name"
-  value       = "RT" # Set the desired name here
-}
-
 
 resource "aws_route" "internet" {
   route_table_id         = aws_route_table.main.id
