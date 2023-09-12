@@ -29,7 +29,7 @@ variable "instance_ami" {
 
 variable "s3_bucket_name" {
   description = "Name of the S3 bucket."
-  default     = "myyy-terrr-buckettttt001"
+  default     = "my-ter-buckettttt001"
 }
 
 variable "security_group_ingress" {
