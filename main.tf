@@ -66,7 +66,7 @@ resource "aws_s3_bucket" "main" {
 }
 
 resource "aws_iam_policy" "s3_bucket_policy" {
-  name        = "s3_buckett_policyy"
+  name        = "s3_bucket_policyyy"
   description = "IAM policy for granting access to S3 bucket"
   policy = jsonencode({
     Version = "2012-10-17",
