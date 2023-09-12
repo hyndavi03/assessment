@@ -14,6 +14,7 @@ resource "aws_subnet" "main" {
   cidr_block     = var.subnet_cidr_block
   vpc_id         = aws_vpc.main.id
   availability_zone = "${var.aws_region}a"
+  map_public_ip_on_launch = true
   tags = {
     Name = "MySubnet-1"
   }
@@ -66,7 +67,7 @@ resource "aws_s3_bucket" "main" {
 }
 
 resource "aws_iam_policy" "s3_bucket_policy" {
-  name        = "s3_bucket_policyyy"
+  name        = "s3_bucket_policcy"
   description = "IAM policy for granting access to S3 bucket"
   policy = jsonencode({
     Version = "2012-10-17",
