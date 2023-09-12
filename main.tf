@@ -28,8 +28,19 @@ resource "aws_internet_gateway" "main" {
 
 resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main.id
-  name   = "RT"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
 }
+
+resource "aws_route_table_tag" "main" {
+  resource_id = aws_route_table.main.id
+  key         = "Name"
+  value       = "RT" # Set the desired name here
+}
+
 
 resource "aws_route" "internet" {
   route_table_id         = aws_route_table.main.id
