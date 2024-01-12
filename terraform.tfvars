@@ -1,3 +1,2 @@
-iam_user_name = "my-iam-user-1"
-iam_role_name = "my-iam-role-1"
-
+development_subnet_cidr_block = "11.0.1.0/24"
+production_subnet_cidr_block  = "11.0.2.0/24"
